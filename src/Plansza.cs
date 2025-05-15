@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonopolyGalaktyczneFull
+namespace MonopolyGalaktyczneFull.src
 {
     public class Plansza
     {

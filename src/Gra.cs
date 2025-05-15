@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 //mozliwosc wyboru glosu itp
 //pauzowanie czytania + przerwanie
 //znaczniki w tekscie dotyczace lektora - glos meski, zenski, itp
-namespace MonopolyGalaktyczneFull
+namespace MonopolyGalaktyczneFull.src
 {
     public class Gra
     {
@@ -28,9 +28,9 @@ namespace MonopolyGalaktyczneFull
         public void dodajGraczy(int liczbaGraczy)
         {
             gameForm = Program.gameForm;
-            this.gracze = new List<Gracz>(liczbaGraczy);
-            this.iloscTur = liczbaGraczy;
-            this.turaGracza = 0;
+            gracze = new List<Gracz>(liczbaGraczy);
+            iloscTur = liczbaGraczy;
+            turaGracza = 0;
         }
 
         private void ustawTure(int turaGracza)

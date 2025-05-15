@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace MojKontener
+namespace MonopolyGalaktyczneFull.containers
 {
     public class GameGrid : Panel
     {
         public Control CenterControl { get; set; }
         public GameGrid()
         {
-            this.Resize += (s, e) => this.PerformLayout();
+            Resize += (s, e) => PerformLayout();
         }
 
         protected override void OnLayout(LayoutEventArgs levent)
@@ -23,8 +23,8 @@ namespace MojKontener
             int totalRows = 7;
             int totalCols = 7;
 
-            int cellWidth = this.ClientSize.Width / totalCols;
-            int cellHeight = this.ClientSize.Height / totalRows;
+            int cellWidth = ClientSize.Width / totalCols;
+            int cellHeight = ClientSize.Height / totalRows;
 
             int index = 0;
 
@@ -34,9 +34,9 @@ namespace MojKontener
                 {
                     if (row == 0 || row == totalRows - 1 || col == 0 || col == totalCols - 1)
                     {
-                        if (index < this.Controls.Count)
+                        if (index < Controls.Count)
                         {
-                            Control ctrl = this.Controls[index++];
+                            Control ctrl = Controls[index++];
                             ctrl.Bounds = new Rectangle(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
                         }
                     }

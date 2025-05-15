@@ -1,4 +1,4 @@
-namespace MonopolyGalaktyczneFull
+namespace MonopolyGalaktyczneFull.src
 {
     internal static class Program
     {

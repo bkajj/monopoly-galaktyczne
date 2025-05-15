@@ -1,4 +1,4 @@
-﻿namespace MonopolyGalaktyczneFull
+﻿namespace MonopolyGalaktyczneFull.src
 {
     public class Gracz
     {
@@ -14,8 +14,8 @@
         public Gracz(string nick, Gra gra)
         {
             this.nick = nick;
-            this.kasa = 1500;
-            this.obecnePole = new Pole(Pole.TypPola.Start);
+            kasa = 1500;
+            obecnePole = new Pole(Pole.TypPola.Start);
             this.gra = gra;
         }
         public void akcjaPola()
@@ -117,7 +117,7 @@
             for(int i = 0; i < 4; i++)
             {
                 //jesli planeta jest z i-tego ukladu
-                if (planetaZUkladuIndex >= (i+1) && planetaZUkladuIndex <= (i+5) && planetaZUkladuIndex != (i+3))
+                if (planetaZUkladuIndex >= i+1 && planetaZUkladuIndex <= i+5 && planetaZUkladuIndex != i+3)
                 {
                     //sprawdz wszystkie planety w tym ukladzie
                     if (gra.plansza.pola[i + 1].planeta.wlasciciel == this &&

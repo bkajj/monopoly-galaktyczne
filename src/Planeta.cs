@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonopolyGalaktyczneFull
+namespace MonopolyGalaktyczneFull.src
 {
     public class Planeta
     {
@@ -29,9 +29,9 @@ namespace MonopolyGalaktyczneFull
             this.nazwa = nazwa;
             this.uklad = uklad;
             this.cena = cena;
-            this.czynsz = 0;
-            this.poziom = 0;
-            this.wlasciciel = null;
+            czynsz = 0;
+            poziom = 0;
+            wlasciciel = null;
         }
 
         public string nazwaAglomeracji(int poziomAglomeracji)
@@ -57,9 +57,9 @@ namespace MonopolyGalaktyczneFull
         }
         public void osiedl(Gracz kupujacy)
         {
-            this.wlasciciel = kupujacy;
-            this.typ = typKolonii.PortKosmiczny;
-            this.czynsz = 100;
+            wlasciciel = kupujacy;
+            typ = typKolonii.PortKosmiczny;
+            czynsz = 100;
 
             kupujacy.kasa -= cena;
         }
@@ -69,21 +69,21 @@ namespace MonopolyGalaktyczneFull
 
             if(typ == typKolonii.Posterunek)
             {
-                this.czynsz = 200;
-                this.maxPoziom = 5;
-                this.poziom = 1;
+                czynsz = 200;
+                maxPoziom = 5;
+                poziom = 1;
             }
             else if (typ == typKolonii.Kopalnia)
             {
-                this.czynsz = 300;
-                this.maxPoziom = 3;
-                this.poziom = 1;
+                czynsz = 300;
+                maxPoziom = 3;
+                poziom = 1;
             }
             else if (typ == typKolonii.Farma)
             {
-                this.czynsz = 300;
-                this.maxPoziom = 5;
-                this.poziom = 1;
+                czynsz = 300;
+                maxPoziom = 5;
+                poziom = 1;
             }
 
             kupujacy.kasa -= cena;
