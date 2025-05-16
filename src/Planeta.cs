@@ -21,14 +21,16 @@ namespace MonopolyGalaktyczneFull.src
         public typKolonii typ;
         public int cena;
         public int czynsz;
+        public int bazaCzynszu;
         public int poziom;
         public int maxPoziom;
         public Gracz wlasciciel;
-        public Planeta(string nazwa, string uklad, int cena)
+        public Planeta(string nazwa, string uklad, int cena, int bazaCzynszu)
         {
             this.nazwa = nazwa;
             this.uklad = uklad;
             this.cena = cena;
+            this.bazaCzynszu = bazaCzynszu;
             czynsz = 0;
             poziom = 0;
             wlasciciel = null;
@@ -36,7 +38,11 @@ namespace MonopolyGalaktyczneFull.src
 
         public string nazwaAglomeracji(int poziomAglomeracji)
         {
-            if (typ == typKolonii.Posterunek)
+            if (typ == typKolonii.PortKosmiczny)
+            {
+                return "Port Kosmiczny";
+            }
+            else if (typ == typKolonii.Posterunek)
             {
                 if (poziom == 1)
                     return "Posterunek";
@@ -59,7 +65,7 @@ namespace MonopolyGalaktyczneFull.src
         {
             wlasciciel = kupujacy;
             typ = typKolonii.PortKosmiczny;
-            czynsz = 100;
+            czynsz = bazaCzynszu;
 
             kupujacy.kasa -= cena;
         }
@@ -69,24 +75,29 @@ namespace MonopolyGalaktyczneFull.src
 
             if(typ == typKolonii.Posterunek)
             {
-                czynsz = 200;
+                cena += bazaCzynszu;
+                czynsz += bazaCzynszu;
                 maxPoziom = 5;
                 poziom = 1;
             }
             else if (typ == typKolonii.Kopalnia)
             {
-                czynsz = 300;
+                czynsz += bazaCzynszu;
+                cena = bazaCzynszu * 2;
                 maxPoziom = 3;
                 poziom = 1;
+                kupujacy.zyskKopalnie += bazaCzynszu / 2;
             }
             else if (typ == typKolonii.Farma)
             {
-                czynsz = 300;
+                czynsz += bazaCzynszu ;
+                cena = bazaCzynszu;
                 maxPoziom = 5;
                 poziom = 1;
+                kupujacy.zyskFarma += bazaCzynszu / 4;
             }
 
             kupujacy.kasa -= cena;
-        }  
+        }
     }
 }

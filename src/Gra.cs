@@ -71,7 +71,10 @@ namespace MonopolyGalaktyczneFull.src
                 int dodatkowaKasa = 0;
                 for (int i = 0; i < iloscTur; i++)
                 {
-                    dodatkowaKasa = gracze[i].iloscPosiadanychPlanet() * 50 + gracze[i].zyskStocznia;
+                    dodatkowaKasa = gracze[i].iloscPosiadanychPlanet() * 50;
+                    dodatkowaKasa += gracze[i].zyskStocznia;
+                    dodatkowaKasa += gracze[i].zyskKopalnie;
+                    dodatkowaKasa += gracze[i].zyskFarma;
                     gracze[i].kasa += dodatkowaKasa;
                 }
             }

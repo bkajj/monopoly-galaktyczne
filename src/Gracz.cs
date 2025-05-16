@@ -11,6 +11,8 @@
         public int iloscObronPrzedPiratami = 0;
         public int blokadaKolejki = 0;
         public int zyskStocznia = 0;
+        public int zyskKopalnie = 0;
+        public int zyskFarma = 0;
         public Gracz(string nick, Gra gra)
         {
             this.nick = nick;

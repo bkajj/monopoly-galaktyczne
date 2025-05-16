@@ -1,8 +1,9 @@
-﻿using MojKontener;
-using static MonopolyGalaktyczneFull.Planeta;
+﻿using static MonopolyGalaktyczneFull.src.Planeta;
 using System.Text.RegularExpressions;
 using System;
 using Font = System.Drawing.Font;
+using MonopolyGalaktyczneFull.src;
+using MonopolyGalaktyczneFull.containers;
 
 namespace MonopolyGalaktyczneFull
 {
@@ -27,7 +28,6 @@ namespace MonopolyGalaktyczneFull
 
         private void startGame(object sender, EventArgs e, int playerCount)
         {
-            //piraci nie dzialaja przy wyladowaniu na polu piratow
             gra.dodajGraczy(playerCount);
             string[] nicknames = new string[playerCount];
             for (int i = 0; i < playerNickTextBoxes.Count; i++)
@@ -286,35 +286,50 @@ namespace MonopolyGalaktyczneFull
 
         public void rozbuduj(Pole pole, Gracz gracz)
         {
-            if (gracz.kasa - pole.planeta.cena < 0)
+            int cena;
+            if(pole.planeta.typ == typKolonii.Posterunek)
+                cena = pole.planeta.cena + pole.planeta.bazaCzynszu;
+            else
+                cena = pole.planeta.cena;
+
+            if (gracz.kasa < cena)
             {
                 MessageBox.Show("Nie masz wystarczająco kredytów galaktycznych");
                 return;
             }
-            //update structure info
-            gracz.kasa -= pole.planeta.cena;
-            if (pole.planeta.typ == typKolonii.Posterunek)
-                pole.planeta.czynsz += 50;
-            else if (pole.planeta.typ == typKolonii.Kopalnia)
-                pole.planeta.czynsz += 100;
+
+            pole.planeta.cena = cena;
+            gracz.kasa -= cena;
+            pole.planeta.czynsz += pole.planeta.bazaCzynszu;
+
+            if (pole.planeta.typ == typKolonii.Kopalnia)
+                gracz.zyskKopalnie += pole.planeta.bazaCzynszu / 2;
             else if (pole.planeta.typ == typKolonii.Farma)
-                pole.planeta.czynsz += 100;
-            pole.planeta.poziom++;
+                gracz.zyskFarma += pole.planeta.bazaCzynszu / 4;
+
+            UpdateStructureName(pole, gracz);
+        }
+
+        void UpdateStructureName(Pole pole, Gracz gracz)
+        {
+            string structureName = pole.planeta.nazwaAglomeracji(pole.planeta.poziom);
+            structureLabels[pole.index].Text = $"{gracz.nick}: {structureName}";
         }
 
         public void RozbudujAction(Pole pole, Gracz gracz)
         {
-            if (gracz.czyPosiadaWszystkieWUkladzie(gracz.obecnePole.index) && gracz.kasa > 2000)
+            int cenaStoczni = pole.planeta.cena * 3;
+            if (gracz.czyPosiadaWszystkieWUkladzie(gracz.obecnePole.index) && gracz.kasa >= cenaStoczni)
             {
                 UpdateActionPanel("Posiadasz wszystkie planety w tym układzie," +
-                    " czy chcesz zbudować stocznie galaktyczną za 1000 kredytów galaktycznych?", "Tak", "Nie");
+                    $" czy chcesz zbudować stocznie galaktyczną za {cenaStoczni} kredytów galaktycznych?", "Tak", "Nie");
                 actionButtons[0].Click += (s, e) =>
                 {
-                    if (gracz.kasa >= 1000)
+                    if (gracz.kasa >= cenaStoczni)
                     {
                         structureLabels[gracz.obecnePole.index].Text = "Stocznia Galaktyczna";
-                        gracz.kasa -= 1000;
-                        gracz.zyskStocznia += 500;
+                        gracz.kasa -= cenaStoczni;
+                        gracz.zyskStocznia += pole.planeta.bazaCzynszu * 2;
                     }
                     else
                     {
@@ -360,8 +375,7 @@ namespace MonopolyGalaktyczneFull
                 {
                     pole.planeta.osiedl(gracz);
                     gra.gameForm.UpdatePlayerInfo(gracz);
-                    string structureName = Regex.Replace(pole.planeta.typ.ToString(), "(?<!^)([A-Z])", " $1");
-                    structureLabels[pole.index].Text = $"{gracz.nick}: {structureName}, lvl {pole.planeta.poziom}";
+                    UpdateStructureName(pole, gracz);
                 }
                 else
                 {
@@ -449,22 +463,28 @@ namespace MonopolyGalaktyczneFull
             UpdateActionPanel("Czy chcesz rozbudować port kosmiczny?", "Tak", "Nie");
             actionButtons[0].Click += (s, e) =>
             {
-                UpdateActionPanel("Co chcesz wybudować na tej planecie?", "Posterunek za 200 kredytów",
-                    "Kopanię za 300 kredytów", "Farmę żywności za 300 kredytów", "Nic");
+                int cenaPosterunek = pole.planeta.cena + pole.planeta.bazaCzynszu;
+                int cenaKopalnia = pole.planeta.cena * 2;
+                int cenaFarma = pole.planeta.cena;
+                UpdateActionPanel("Co chcesz wybudować na tej planecie?", $"Posterunek za {cenaPosterunek} kredytów",
+                    $"Kopanię za {cenaKopalnia} kredytów", $"Farmę żywności za {cenaFarma} kredytów", "Nic");
                     
                 actionButtons[0].Click += (s, e) =>
                 {
                     pole.planeta.wybuduj(Planeta.typKolonii.Posterunek, gracz);
+                    UpdateStructureName(pole, gracz);
                     gra.nastepnaTura();
                 };
                 actionButtons[1].Click += (s, e) =>
                 {
                     pole.planeta.wybuduj(Planeta.typKolonii.Kopalnia, gracz);
+                    UpdateStructureName(pole, gracz);
                     gra.nastepnaTura();
                 };
                 actionButtons[2].Click += (s, e) =>
                 {
                     pole.planeta.wybuduj(Planeta.typKolonii.Farma, gracz);
+                    UpdateStructureName(pole, gracz);
                     gra.nastepnaTura();
                 };
                 actionButtons[3].Click += (s, e) =>

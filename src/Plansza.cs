@@ -31,25 +31,25 @@ namespace MonopolyGalaktyczneFull.src
                 pola[i] = pole;
             }
 
-            pola[1].planeta = new Planeta("Merkury", "Układ słoneczny", 200);
-            pola[2].planeta = new Planeta("Wenus", "Układ słoneczny", 200);
-            pola[4].planeta = new Planeta("Ziemia", "Układ słoneczny", 200);
-            pola[5].planeta = new Planeta("Mars", "Układ słoneczny", 200);
+            pola[1].planeta = new Planeta("Merkury", "Układ słoneczny", 200, 100);
+            pola[2].planeta = new Planeta("Wenus", "Układ słoneczny", 200, 100);
+            pola[4].planeta = new Planeta("Ziemia", "Układ słoneczny", 200, 100);
+            pola[5].planeta = new Planeta("Mars", "Układ słoneczny", 200, 100);
 
-            pola[7].planeta = new Planeta("Eres", "Układ Kepler-31", 300);
-            pola[8].planeta = new Planeta("Titan", "Układ Kepler-31", 300);
-            pola[10].planeta = new Planeta("Callisto", "Układ Kepler-31", 300);
-            pola[11].planeta = new Planeta("Rhea", "Układ Kepler-31", 300);
+            pola[7].planeta = new Planeta("Eres", "Układ Kepler-31", 300, 150);
+            pola[8].planeta = new Planeta("Titan", "Układ Kepler-31", 300, 150);
+            pola[10].planeta = new Planeta("Callisto", "Układ Kepler-31", 300, 150);
+            pola[11].planeta = new Planeta("Rhea", "Układ Kepler-31", 300, 150);
 
-            pola[13].planeta = new Planeta("Rondo", "Układ Zeta Reticuli", 400);
-            pola[14].planeta = new Planeta("Feros", "Układ Zeta Reticuli", 400);
-            pola[16].planeta = new Planeta("Arcanis", "Układ Zeta Reticuli", 400);
-            pola[17].planeta = new Planeta("Icarion", "Układ Zeta Reticuli", 400);
+            pola[13].planeta = new Planeta("Rondo", "Układ Zeta Reticuli", 400, 200);
+            pola[14].planeta = new Planeta("Feros", "Układ Zeta Reticuli", 400, 200);
+            pola[16].planeta = new Planeta("Arcanis", "Układ Zeta Reticuli", 400, 200);
+            pola[17].planeta = new Planeta("Icarion", "Układ Zeta Reticuli", 400, 200);
 
-            pola[19].planeta = new Planeta("Eldran", "Układ Varkorath", 500);
-            pola[20].planeta = new Planeta("Sirius X ", "Układ Varkorath", 500);
-            pola[22].planeta = new Planeta("Draxion", "Układ Varkorath", 500);
-            pola[23].planeta = new Planeta("Enara", "Układ Varkorath", 500);
+            pola[19].planeta = new Planeta("Eldran", "Układ Varkorath", 500, 250);
+            pola[20].planeta = new Planeta("Sirius X ", "Układ Varkorath", 500, 250);
+            pola[22].planeta = new Planeta("Draxion", "Układ Varkorath", 500, 250);
+            pola[23].planeta = new Planeta("Enara", "Układ Varkorath", 500, 250);
 
         }
     }
