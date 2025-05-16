@@ -11,6 +11,7 @@ namespace MonopolyGalaktyczneFull.src
         
         public enum typKolonii
         {
+            Brak,
             PortKosmiczny,
             Posterunek,
             Kopalnia,
@@ -22,6 +23,7 @@ namespace MonopolyGalaktyczneFull.src
         public int cena;
         public int czynsz;
         public int bazaCzynszu;
+        public int bazaCena;
         public int poziom;
         public int maxPoziom;
         public Gracz wlasciciel;
@@ -31,9 +33,20 @@ namespace MonopolyGalaktyczneFull.src
             this.uklad = uklad;
             this.cena = cena;
             this.bazaCzynszu = bazaCzynszu;
+            bazaCena = cena;
             czynsz = 0;
             poziom = 0;
             wlasciciel = null;
+            typ = typKolonii.Brak;
+        }
+
+        public void reset()
+        {
+            wlasciciel = null;
+            czynsz = 0;
+            poziom = 0;
+            cena = bazaCena;
+            typ = typKolonii.Brak;
         }
 
         public string nazwaAglomeracji(int poziomAglomeracji)

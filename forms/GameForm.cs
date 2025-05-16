@@ -44,8 +44,22 @@ namespace MonopolyGalaktyczneFull
         {
             int obecnePoleIndex = gracz.obecnePole.index;
             gra.usunGracza(gracz);
-            playerInfoLabels.Remove(playerInfoLabels[obecnePoleIndex]);
+
+            Label labelDoUsuniecia = playerInfoLabels[gra.turaGracza];
+            playerInfoPanel.Controls.Remove(labelDoUsuniecia);
+            playerInfoLabels.Remove(labelDoUsuniecia);
+
             playerLabels[obecnePoleIndex].Text = "";
+
+            for(int i = 0; i < structureLabels.Count; i++)
+            {
+                if (structureLabels[i].Text.Contains(gracz.nick))
+                {
+                    structureLabels[i].Text = "";
+                    gra.plansza.pola[i].planeta.reset();
+                }
+            }
+
             for (int i = 0; i < gra.gracze.Count; i++)
             {
                 if (gra.gracze[i].obecnePole.index == obecnePoleIndex)
